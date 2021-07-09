@@ -42,6 +42,14 @@ fn main() {
             PathBuf::from(out_dir.as_str()).join("memory.x"),
         ).unwrap();
     }
+    if target == "thumbv7em-none-eabihf" {
+        b.freertos_config("examples/atmel");
+        copy(
+            "examples/atmel/memory.x",
+            PathBuf::from(out_dir.as_str()).join("memory.x"),
+        ).unwrap();
+    }
+
     if target == "thumbv8m.main-none-eabihf" {
         b.freertos_config("examples/nrf9160");
         copy(
@@ -50,7 +58,7 @@ fn main() {
         ).unwrap();
     }
 
-    b.compile().unwrap_or_else(|e| { panic!(e.to_string()) });
+    b.compile().unwrap_or_else(|e| { panic!("{}", e) });
 }
 
 /// Print relevant environment variables
